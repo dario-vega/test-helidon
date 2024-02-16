@@ -17,22 +17,22 @@ java -jar target/helidon.jar
 Basic:
 [source,bash]
 ----
-curl -X GET http://localhost:8080/simple-greet
+curl -X GET http://localhost:8181/simple-greet
 Hello World!
 ----
 
 JSON:
 [source,bash]
 ----
-curl -X GET http://localhost:8080/greet
+curl -X GET http://localhost:8181/greet
 {"message":"Hello World!"}
 
-curl -X GET http://localhost:8080/greet/Joe
+curl -X GET http://localhost:8181/greet/Joe
 {"message":"Hello Joe!"}
 
-curl -X PUT -H "Content-Type: application/json" -d '{"greeting" : "Hola"}' http://localhost:8080/greet/greeting
+curl -X PUT -H "Content-Type: application/json" -d '{"greeting" : "Hola"}' http://localhost:8181/greet/greeting
 
-curl -X GET http://localhost:8080/greet/Jose
+curl -X GET http://localhost:8181/greet/Jose
 {"message":"Hola Jose!"}
 ----
 
@@ -41,12 +41,12 @@ curl -X GET http://localhost:8080/greet/Jose
 [source,bash]
 ----
 # Prometheus Format
-curl -s -X GET http://localhost:8080/metrics
+curl -s -X GET http://localhost:8181/metrics
 # TYPE base:gc_g1_young_generation_count gauge
 . . .
 
 # JSON Format
-curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
+curl -H 'Accept: application/json' -X GET http://localhost:8181/metrics
 {"base":...
 . . .
 ----
@@ -58,33 +58,29 @@ To interact with the API provided by the `BeerResource` class using `curl`, you 
 * **Get all beers**:
 [source,bash]
 ----
-curl -X GET http://localhost:8080/beers
+curl -X GET http://localhost:8181/beers
 ----
 
 * **Get a specific beer by ID**:
 [source,bash]
 ----
-curl -X GET http://localhost:8080/beers/<beer_id>
+curl -X GET http://localhost:8181/beers/<beer_id>
 ----
 Replace `<beer_id>` with the actual ID of the beer you want to retrieve.
 
 * **Insert a new beer**:
-[source,bash]
-----
-curl -X PUT -H "Content-Type: application/json" -d '{"id":"<beer_id>", "style":"<beer_style>", "hop":"<beer_hop>", "malt":"<beer_malt>", "comments":["<comment_1>", "<comment_2>"]}' http://localhost:8080/beers
-----
-Replace `<beer_id>`, `<beer_style>`, `<beer_hop>`, `<beer_malt>`, `<comment_1>`, `<comment_2>`, etc. with the actual values of the beer you want to insert.
 
 [source,bash]
 ----
-curl -X PUT -H "Content-Type: application/json" -d '{"style":"IPA", "hop":"Cascade", "malt":"Pale Ale", "comments":["Great beer!", "Highly recommended."]}'
-http://localhost:8080/beers
+curl --location --request PUT 'http://localhost:8181/beers' \
+--header 'Content-Type: application/json' \
+--data '{"style":"IPA", "hop":"Cascade", "malt":"Pale Ale", "comments":["Great beer!", "Highly recommended."]}'
 ----
 
 * **Delete a beer by ID**:
 [source,bash]
 ----
-curl -X DELETE http://localhost:8080/beers/<beer_id>
+curl -X DELETE http://localhost:8181/beers/<beer_id>
 ----
 
 Replace `<beer_id>` with the actual ID of the beer you want to delete.
@@ -94,7 +90,7 @@ Replace `<beer_id>` with the actual ID of the beer you want to delete.
 
 [source,bash]
 ----
-curl -s -X GET http://localhost:8080/health
+curl -s -X GET http://localhost:8181/health
 {"outcome":"UP",...
 ----
 
@@ -122,7 +118,7 @@ docker build -t helidon .
 
 [source,bash]
 ----
-docker run --rm -p 8080:8080 helidon:latest
+docker run --rm -p 8181:8181 helidon:latest
 ----
 
 Exercise the application as described above.
@@ -148,7 +144,7 @@ kubectl get pods                            // Wait for quickstart pod to be RUN
 kubectl get service  helidon         // Get service info
 ----
 
-Note the PORTs. You can now exercise the application as you did before but use the second port number (the NodePort) instead of 8080.
+Note the PORTs. You can now exercise the application as you did before but use the second port number (the NodePort) instead of 8181.
 
 After you’re done, cleanup.
 
