@@ -15,9 +15,11 @@
 package os.expert.demo.helidon;
 
 
+import jakarta.json.bind.annotation.JsonbVisibility;
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
+import javassist.expr.FieldAccess;
 import net.datafaker.Faker;
 
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.UUID;
 
 
 @Entity
+@JsonbVisibility(FieldAccessStrategy.class)
 public class Beer {
 
     @Id
@@ -44,25 +47,6 @@ public class Beer {
     @Column
     private List<String> comments;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public String getHop() {
-        return hop;
-    }
-
-    public String getMalt() {
-        return malt;
-    }
-
-    public List<String> getComments() {
-        return comments;
-    }
 
     @Override
     public String toString() {
