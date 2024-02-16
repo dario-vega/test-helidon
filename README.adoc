@@ -51,6 +51,39 @@ curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
 . . .
 ----
 
+== Interacting with the API
+
+To interact with the API provided by the `BeerResource` class using `curl`, you can use the following commands:
+
+* **Get all beers**:
+[source,bash]
+----
+curl -X GET http://localhost:8080/beers
+----
+
+* **Get a specific beer by ID**:
+[source,bash]
+----
+curl -X GET http://localhost:8080/beers/<beer_id>
+----
+Replace `<beer_id>` with the actual ID of the beer you want to retrieve.
+
+* **Insert a new beer**:
+[source,bash]
+----
+curl -X PUT -H "Content-Type: application/json" -d '{"id":"<beer_id>", "style":"<beer_style>", "hop":"<beer_hop>", "malt":"<beer_malt>", "comments":["<comment_1>", "<comment_2>"]}' http://localhost:8080/beers
+----
+Replace `<beer_id>`, `<beer_style>`, `<beer_hop>`, `<beer_malt>`, `<comment_1>`, `<comment_2>`, etc. with the actual values of the beer you want to insert.
+
+* **Delete a beer by ID**:
+[source,bash]
+----
+curl -X DELETE http://localhost:8080/beers/<beer_id>
+----
+
+Replace `<beer_id>` with the actual ID of the beer you want to delete.
+
+
 == Try health
 
 [source,bash]
