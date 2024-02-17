@@ -12,7 +12,6 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
-import java.util.Optional;
 
 @Path("/beers")
 @RequestScoped
@@ -21,6 +20,7 @@ public class BeerResource {
 
     @Inject
     private BeerRepository beerRepository;
+
 
 
     @GET
